@@ -27,6 +27,9 @@ def detector(frame):
 
     if found > 0:
         obj = True
+     
+    elif found == 0:
+        obj = False
 
     return obj, frame
 
@@ -39,7 +42,7 @@ def file_check():
 
     dates_f = os.listdit(parent)
             
-    today = str(dtm.now().day) + " of " + str(dtm.now().month) + "th"
+    today = str(dtm.now().day) + ' of ' + str(dtm.now().month) + 'th'
 
     folder = os.path.join(parent, today)
 
@@ -59,55 +62,98 @@ def recorder(obj, frame):
 
     obj.write(frame)
 
+def space_protocol():
 
-cap = cv2.VideoCapture(0)
+    parent = '/home/pi/Desktop/Recorded/'
 
-model = cv2.CascadeClassifier('models/haarcascade_upperbody.xml') # The Classifier Model
-
-while True:
-
-    ret, image = cap.read() # Capturing the Frame
-
-    # Condition if it captures the frame
-    if ret: 
-        
-        if Found == False:
-
-            Found, frm = framedetector(image)
-
-
-        elif Found == True and time.time() - last_time > threshold:
-
-            last_time = time.time()
-
-            fold = file_check()
-
-            files_folder = len(os.listdir(fold)) + 1
-
-            file = str(os.path.join(fold, files_folder)) + '.mp4'
-
-
-            fourcc = cv2.VideoWriter_fourcc(*'XVID')
-            out = cv2.VideoWriter(file, fourcc, 25.0, (640, 480))
-
-
-        elif Found == True and time.time() - last_time <= threshold:
-
-            recorder(out, image)
-
-        if time.time() - last_time == threshold:
-
-            Found = False
-
-
-
-
-
-
-    if cv2.waitkey(1) & 0xFF == ord('q'):
-        cv2.destroyAllWindows()
-
-        break
-        
+    folders = os.listdir(parent)
     
-cam.release()
+    for i in folders:
+    
+        shutil.rmtree(i)
+
+    print("Space-Protocol Sucessfully ran :)")
+
+
+if __name__ == "__main__" :
+
+    cap = cv2.VideoCapture(0)
+
+    model = cv2.CascadeClassifier('models/haarcascade_upperbody.xml') # The Classifier Model
+
+    Found = False
+
+    last_time = 0
+
+    threshold = 10
+
+    days = 15
+
+
+    try: 
+
+        parent = '/home/pi/Desktop/Recorded/'
+        
+        while os.listdir(parent) <= days:
+
+            ret, image = cap.read() # Capturing the Frame
+
+            # Condition if it captures the frame
+            if ret: 
+        
+                if Found == False:
+
+                    Found, image = detector(image)
+
+
+                elif Found == True and time.time() - last_time > threshold:
+
+                    last_time = time.time()
+
+                    print("Person Detected")
+
+                    fold = file_check()
+
+                    files = str(int(len(os.listdir(fold))) + 1)
+
+                    file = str(os.path.join(fold, files)) + '.mp4'
+
+
+                    fourcc = cv2.VideoWriter_fourcc(*'XVID')
+                    out = cv2.VideoWriter(file, fourcc, 25.0, (640, 480))
+
+                    print("Recording...")
+
+
+                elif Found == True and time.time() - last_time <= threshold:
+
+                    Found, image = detector(image)                    
+
+                    recorder(out, image)
+
+                    Found = True
+
+                if time.time() - last_time == threshold:
+
+                    print("Done Recording...")
+                    
+                    Found = False
+
+            else:
+               
+               print("No Frame Captured! Re-Runing the Loop :(")
+
+    except Exception as error:
+
+        print("\n\nThe Program had cought an error:\n{}\n:(".format(error))
+
+
+    finally:        
+    
+        print("\n\nClosing the Program\n")
+        
+        cv2.destroyAllWindows()
+        cam.release()
+
+        print("Sucessfully Closed the Program.\n\
+              Thanks for using the PSI Camera :)")
