@@ -24,7 +24,7 @@ import os
 import cv2 # Open-CV
 
 from datetime import datetime as dtm
-from gpiozero import Buzzer as Buzz # Buzzer
+from gpiozero import Buzzer as buzz # Buzzer
 
 
 
@@ -41,7 +41,7 @@ def detector(frame):
 
         found = detection.shape[0] # Finding the no. of detected objects, if any
 
-    else:
+    except:
 
         found = 0 # If it detected none
 
@@ -150,6 +150,8 @@ if __name__ == "__main__" :
     days = 15 # No. of days to keep
 
     butt = buzz(27) # Buzzer
+
+    sp = 0.125
 
   
     try: 
