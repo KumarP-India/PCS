@@ -171,7 +171,7 @@ if __name__ == "__main__" :
         
 
 
-        while os.listdir(parent) <= days: # If it is between the Storage Time
+        while len(os.listdir(parent)) <= days: # If it is between the Storage Time
 
             ret, image = cap.read() # Capturing the Frame
 
