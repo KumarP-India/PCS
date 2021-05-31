@@ -73,7 +73,7 @@ def file_check():
             
     parent = '/home/pi/Desktop/Recorded/' # The path!
 
-    dates_f = os.listdit(parent) # Listing all of the folders in Parent path
+    dates_f = os.listdir(parent) # Listing all of the folders in Parent path
             
     today = str(dtm.now().day) + ' of ' + str(dtm.now().month) + 'th' # The todays' Folder name
 
