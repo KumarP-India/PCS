@@ -147,11 +147,11 @@ if __name__ == "__main__" :
 
     threshold = 10 # The Sec.(s) of Recorded Videos
 
-    days = 15 # No. of days to keep
+    days = 2 # No. of days to keep
 
     butt = buzz(27) # Buzzer
 
-    sp = 0.125
+    sp = 0.125 # Sleep for Buzzer
 
   
     try: 
@@ -206,11 +206,11 @@ if __name__ == "__main__" :
 
                     files = str(int(len(os.listdir(fold))) + 1) # The Vidio-File no.
 
-                    file = str(os.path.join(fold, files)) + '.mp4' # The Video-File name
+                    file = str(os.path.join(fold, files)) + '.wmv' # The Video-File name
 
 
                     # Creating Recrding File Object
-                    fourcc = cv2.VideoWriter_fourcc(*'XVID')
+                    fourcc = cv2.VideoWriter_fourcc('W', 'M', 'V', '2')
                     out = cv2.VideoWriter(file, fourcc, 25.0, (640, 480))
 
 
@@ -237,7 +237,8 @@ if __name__ == "__main__" :
                     
                     Found = False # Changing the Var. for the same
 
-                cv2.imshow("PCS-Feed", image)
+                cv2.imshow("PCS-Feed", image) # Showing the Videofeed
+                cv2.waitkey(1) # To not to distroy the window immediately
 
 
 
@@ -297,7 +298,7 @@ if __name__ == "__main__" :
         
         # Closing the Camera!
         cv2.destroyAllWindows()
-        cam.release()
+        cap.release()
 
         
         # Buzzer
