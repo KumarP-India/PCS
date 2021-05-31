@@ -200,7 +200,7 @@ if __name__ == "__main__" :
 
 
 
-                    print("Person Detected") # Printing the statemet
+                    print("Person Detected!") # Printing the statemet
 
                     fold = file_check() # Runninf the Folder-Path Protocol
 
@@ -231,11 +231,13 @@ if __name__ == "__main__" :
 
 
                 # If it's recording Phase just ended
-                if time.time() - last_time == threshold:
+                elif time.time() - last_time > threshold:
 
-                    print("Done Recording...") # Printing the Statement
+                    print("\nDone Recording...\n") # Printing the Statement
                     
                     Found = False # Changing the Var. for the same
+
+
 
                 cv2.imshow("PCS-Feed", image) # Showing the Videofeed
                 cv2.waitKey(1) # To not to distroy the window immediately
@@ -248,7 +250,7 @@ if __name__ == "__main__" :
                
                print("No Frame Captured! Re-Runing the Loop :(") # Printing the Statement
 
-
+        space_protocol()
 
     
     # Handling any error occoured in this
@@ -315,8 +317,8 @@ if __name__ == "__main__" :
         
         
          # Printing the Statement
-        print("Sucessfully Closed the Program.\n\
-              Thanks for using the PSI Camera :)")
+        print("Sucessfully Closed the Program.\n",
+              "Thanks for using the PCS:)")
 
 
 '''
