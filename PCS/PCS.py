@@ -22,6 +22,7 @@
 import time
 import os
 import cv2 # Open-CV
+import shutil # For Space-Protocol
 
 from datetime import datetime as dtm
 from gpiozero import Buzzer as buzz # Buzzer
@@ -122,7 +123,7 @@ def space_protocol():
     # Loopinf over all of the Folders in Parent path
     for i in folders:
     
-        shutil.rmtree(i) # Removing the Non-Empty Folders from Path
+        shutil.rmtree(os.path.join(parent, i)) # Removing the Non-Empty Folders from Path
 
 
 
@@ -169,88 +170,88 @@ if __name__ == "__main__" :
         time.sleep(sp)
         butt.off()
         
+        while True:
+
+            while len(os.listdir(parent)) <= days: # If it is between the Storage Time
+
+                ret, image = cap.read() # Capturing the Frame
 
 
-        while len(os.listdir(parent)) <= days: # If it is between the Storage Time
 
-            ret, image = cap.read() # Capturing the Frame
-
-
-
-            # Condition if it captures the frame
-            if ret: 
+                # Condition if it captures the frame
+                if ret: 
         
-                # If it doesn't found the object
-                if Found == False:
+                    # If it doesn't found the object
+                    if Found == False:
 
-                    Found, image = detector(image) # Running the model-Function
-
-
-                
-                # If it Founds the Object and not recodrding
-                elif Found == True and time.time() - last_time > threshold:
-
-                    last_time = time.time() # registering the time
-
-
-                    # Buzzer
-                    butt.on()
-                    time.sleep(sp)
-                    butt.off()
-
-
-
-                    print("Person Detected!") # Printing the statemet
-
-                    fold = file_check() # Runninf the Folder-Path Protocol
-
-                    files = str(int(len(os.listdir(fold))) + 1) # The Vidio-File no.
-
-                    file = str(os.path.join(fold, files)) + '.wmv' # The Video-File name
-
-
-                    # Creating Recrding File Object
-                    fourcc = cv2.VideoWriter_fourcc('W', 'M', 'V', '2')
-                    out = cv2.VideoWriter(file, fourcc, 25.0, (640, 480))
-
-
-
-                    print("Recording...") # Printing the Statement
+                        Found, image = detector(image) # Running the model-Function
 
 
                 
-                # If it's in the recording phase
-                if Found == True and time.time() - last_time <= threshold:
+                    # If it Founds the Object and not recodrding
+                    elif Found == True and time.time() - last_time > threshold:
 
-                    Found, image = detector(image) # Running Model-Protocol                    
-
-                    recorder(out, image) # Running REcording Protocol
-
-                    Found = True # Chaning the Boolean value, if it changed by Model-Protocol
+                        last_time = time.time() # registering the time
 
 
+                        # Buzzer
+                        butt.on()
+                        time.sleep(sp)
+                        butt.off()
 
-                # If it's recording Phase just ended
-                elif time.time() - last_time > threshold:
 
-                    print("\nDone Recording...\n") # Printing the Statement
+
+                        print("Person Detected!") # Printing the statemet
+
+                        fold = file_check() # Runninf the Folder-Path Protocol
+
+                        files = str(int(len(os.listdir(fold))) + 1) # The Vidio-File no.
+
+                        file = str(os.path.join(fold, files)) + '.wmv' # The Video-File name
+
+
+                        # Creating Recrding File Object
+                        fourcc = cv2.VideoWriter_fourcc('W', 'M', 'V', '2')
+                        out = cv2.VideoWriter(file, fourcc, 25.0, (640, 480))
+
+
+
+                        print("Recording...") # Printing the Statement
+
+
+                
+                    # If it's in the recording phase
+                    if Found == True and time.time() - last_time <= threshold:
+
+                        Found, image = detector(image) # Running Model-Protocol                    
+
+                        recorder(out, image) # Running REcording Protocol
+
+                        Found = True # Chaning the Boolean value, if it changed by Model-Protocol
+
+
+
+                    # If it's recording Phase just ended
+                    elif time.time() - last_time > threshold and Found = True:
+
+                        print("\nDone Recording...\n") # Printing the Statement
                     
-                    Found = False # Changing the Var. for the same
+                        Found = False # Changing the Var. for the same
 
 
 
-                cv2.imshow("PCS-Feed", image) # Showing the Videofeed
-                cv2.waitKey(1) # To not to distroy the window immediately
+                    cv2.imshow("PCS-Feed", image) # Showing the Videofeed
+                    cv2.waitKey(1) # To not to distroy the window immediately
 
 
 
 
-            # If no Frame Captured
-            else:
+                # If no Frame Captured
+                else:
                
-               print("No Frame Captured! Re-Runing the Loop :(") # Printing the Statement
+                   print("No Frame Captured! Re-Runing the Loop :(") # Printing the Statement
 
-        space_protocol()
+            space_protocol()
 
     
     # Handling any error occoured in this
