@@ -232,7 +232,7 @@ if __name__ == "__main__" :
 
 
                     # If it's recording Phase just ended
-                    elif time.time() - last_time > threshold and Found = True:
+                    elif time.time() - last_time > threshold and Found == True:
 
                         print("\nDone Recording...\n") # Printing the Statement
                     
