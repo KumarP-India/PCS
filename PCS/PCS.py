@@ -146,9 +146,9 @@ if __name__ == "__main__" :
 
     last_time = 0
 
-    threshold = 10 # The Sec.(s) of Recorded Videos
+    threshold = 180 # The Sec.(s) of Recorded Videos
 
-    days = 2 # No. of days to keep
+    days = 14 # No. of days to keep
 
     butt = buzz(27) # Buzzer
 
