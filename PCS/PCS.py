@@ -218,10 +218,12 @@ if __name__ == "__main__" :
 
                         print("Recording...") # Printing the Statement
 
+                        recorder(out, image)
+
 
                 
                     # If it's in the recording phase
-                    if Found == True and time.time() - last_time <= threshold:
+                    elif Found == True and time.time() - last_time <= threshold:
 
                         Found, image = detector(image) # Running Model-Protocol                    
 
