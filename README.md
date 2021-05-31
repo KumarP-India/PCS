@@ -7,7 +7,8 @@ Everyone need the Security - Camera! But I wanted to do something innoavative! S
 
 # Hardware
 
-1. Your Sexy Rpi Board - I planed to use Rpi. Zero W but due to lack of micro-USB to USB Cabel, actually I got Broken Cabel, & in lockdown due to Covid-19 I can't find any decent                          priced Cabel in stock!
+1. Your Sexy Rpi Board - I planed to use Rpi. Zero W but due to lack of micro-USB to USB Cabel, actually I got Broken Cabel, & in lockdown 
+                         due to Covid-19 I can't find any decent priced Cabel in stock!
 
 2. Any Camera, I used CSI 5 MP Camera
 
