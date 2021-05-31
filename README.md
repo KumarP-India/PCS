@@ -35,6 +35,12 @@ Power on Rpi.
 Open the link in source of any of my program in this repo which says to install OpenCV on Rpi. 4.
 And Follow it accordingly.
 
+run this on terminal: -
+
+```
+pip install -r requirements.txt
+```
+
 Change any Variables in ./PCS/PCS.py as your need! Use comment as guide.
 
 I recommend to run with smaller intervals to check the system then finally change!
