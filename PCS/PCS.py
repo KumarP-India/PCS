@@ -238,7 +238,7 @@ if __name__ == "__main__" :
                     Found = False # Changing the Var. for the same
 
                 cv2.imshow("PCS-Feed", image) # Showing the Videofeed
-                cv2.waitkey(1) # To not to distroy the window immediately
+                cv2.waitKey(1) # To not to distroy the window immediately
 
 
 
