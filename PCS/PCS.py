@@ -180,7 +180,9 @@ if __name__ == "__main__" :
 
                 # Condition if it captures the frame
                 if ret: 
-        
+                    
+                    image = cv2.rotate(image, cv2.ROTATE_180)
+
                     # If it doesn't found the object
                     if Found == False:
 
