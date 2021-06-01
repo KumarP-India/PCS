@@ -96,7 +96,7 @@ if __name__ == "__main__" :
   
     try: 
 
-        parent = '/home/pi/Desktop/Recorded/' # The Path
+        parent = '/media/pi/PCS/Recorded/' # The Path
 
         # Buzzer
         butt.on()
