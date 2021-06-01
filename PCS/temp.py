@@ -142,7 +142,84 @@ if __name__ == "__main__" :
                     elif time.time() - last_time < threshold:
 
                         recorder(out, image)
+
+                    cv2.imshow("PCS - Feed", image)
+                    if cv2.waitKey(1) and ord('q'):
+                        raise RuntimeError("Closed the PCS!")
             
 
 
             space_protocol()
+
+
+
+except Exception as error:
+
+        # Buzzer
+        butt.on()
+        time.sleep(sp)
+        butt.off()
+        
+        time.sleep(sp)
+
+        butt.on()
+        time.sleep(sp)
+        butt.off()
+        
+        time.sleep(sp)
+
+        butt.on()
+        time.sleep(sp)
+        butt.off()
+
+
+        print("\n\nThe Program had cought an error:\n{}\n:(".format(error)) # Printing the Statement
+
+
+
+
+    finally:        
+    
+        
+        # Buzzer
+        butt.on()
+        time.sleep(sp)
+        butt.off()
+        
+        time.sleep(sp)
+        
+        butt.on()
+        time.sleep(sp)
+        butt.off()
+        
+        
+        
+        print("\n\nClosing the Program\n")  # Printing the Statement
+        
+        
+        # Closing the Camera!
+        cv2.destroyAllWindows()
+        cap.release()
+
+        
+        # Buzzer
+        butt.on()
+        time.sleep(sp)
+        butt.off()
+        
+        time.sleep(sp)
+        
+        butt.on()
+        time.sleep(sp)
+        butt.off()
+
+        
+        
+         # Printing the Statement
+        print("Sucessfully Closed the Program.\n",
+              "Thanks for using the PCS:)")
+
+
+'''
+The End :)
+'''
